@@ -1,5 +1,6 @@
 # This project is still under development
 
-This is a repository for path planning in swarm environemnt.
+This is a repository for path planning in swarm environment.
 
-to view the results, clone the repository and execute path.py
+# Usage
+Clone the repository and execute path.py
