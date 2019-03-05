@@ -62,12 +62,12 @@ canvas.pack()
 
 # create two ball objects and animate them
 balls = []
-color = ["red", "green", "black", "orange", "blue", "yellow", "purple", "grey", "brown", "magenta", "cyan"]
+color = ["red", "green", "black", "orange", "blue", "yellow", "purple", "grey", "brown", "magenta"]
 _ = 0
 for i, j in x_star:
 	ball1 = Ball(canvas, initial_pos[i][0], initial_pos[i][1], color[_])
 	ball2 = Ball(canvas, desired_shape[j][0], desired_shape[j][1], color[_])
 	balls.append([ball1, ball2])
-	_ = _ + 1
+	_ = int(_ + 1)%10
 
 root.mainloop()
