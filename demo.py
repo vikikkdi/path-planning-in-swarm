@@ -1,42 +1,38 @@
-import math
 import numpy as np
 from hungarian import Hungarian
 from tkinter import *
-from vis import Ball
-import gradient_descent
-from time import sleep
 
-#n = int(input("Enter the number of UAVs"))
+#this is the initial position matrix (matrix p as per the paper. its size is nx2)
 n = 9
 initial_pos = []
-x = 300
+x = 100
+y = 10
+initial_pos.append([x,y])
+x = 100
+y = 50
+initial_pos.append([x,y])
+x = 100
 y = 100
 initial_pos.append([x,y])
-x = 300
-y = 200
+x = 150
+y = 10
 initial_pos.append([x,y])
-x = 300
-y = 300
+x = 150
+y = 50
 initial_pos.append([x,y])
-x = 400
+x = 150
 y = 100
 initial_pos.append([x,y])
-x = 400
-y = 200
+x = 200
+y = 10
 initial_pos.append([x,y])
-x = 400
-y = 300
+x = 200
+y = 50
 initial_pos.append([x,y])
-x = 500
+x = 200
 y = 100
 initial_pos.append([x,y])
-x = 500
-y = 200
-initial_pos.append([x,y])
-x = 500
-y = 300
-initial_pos.append([x,y])
-
+#this is the desired shape matrix (matrix s as per the paper. its size is nx2)
 desired_shape = []
 x = 100
 y = 200
@@ -65,7 +61,7 @@ desired_shape.append([x,y])
 x = 500
 y = 200
 desired_shape.append([x,y])
-
+#this is the cost matrix that has to be sent to hungarian algorithm for finding the assignment
 k = [[0 for j in range(n)] for i in range(n)]
 
 for i in range(n):
@@ -75,58 +71,50 @@ for i in range(n):
 
 hungarian = Hungarian(k)
 hungarian.calculate()
+#assignment X* as per the paper
 x_star = hungarian.get_results()
+#value K* as per the paper
 k_star = hungarian.get_total_potential()
 
-# initialize root Window and canvas
+# initialize root Window and canvas and this is for visualisation
+class Ball:
+	def __init__(self, canvas, x1, y1, fill_col):
+		self.x1 = x1
+		self.y1 = y1
+		self.x2 = x1+5
+		self.y2 = y1+5
+		self.canvas = canvas
+		self.ball = canvas.create_oval(self.x1, self.y1, self.x2, self.y2, fill=fill_col)
+
 root = Tk()
 root.title("Balls")
 root.resizable(True,True)
 canvas = Canvas(root, width = 800, height = 800)
 canvas.pack()
-
-# create two ball objects and animate them
-balls = []
 color = ["red", "green", "black", "orange", "blue", "yellow", "purple", "grey", "brown", "magenta"]
 
-balls = []
-
-qq = []
-dist = 100000
-for x in range(-100, 100):
-	for y in range(-100, 100):
-		q = np.array([x,y])+np.array(desired_shape)
-		dist_1 = gradient_descent.calculate_distance(initial_pos, q, x_star)
-		if dist > dist_1:
-			dist = dist_1
-			qq = q 
-_ = 0
-for i, j in x_star:
-	ball1 = Ball(canvas, initial_pos[i][0], initial_pos[i][1], color[_])
-	ball = Ball(canvas, qq[j][0], qq[j][1], color[_])
-	balls.append(ball1)
-	_ = int(_ + 1)%10
-for i, j in x_star:
-	balls[i].move_ball(qq[j][0], qq[j][1])
-
-#root.after(50, update_pos, initial_pos, desired_shape, x_star, balls)
-root.mainloop()
-	
-
-
-
-
-'''
+#calculating the goal formation from the desired shape(matrix q as per paper)
 ds = 0
 for i in desired_shape:
 	x = np.transpose(i).dot(np.array(i))
 	ds += x
+
+#calculating alpha star and d star as per equation 21 of the paper
 alpha_star = (np.transpose(initial_pos).dot(np.array(desired_shape))+n*k_star)/(np.transpose(desired_shape).dot(np.array(desired_shape))-(n*ds))
 
 d_star = (initial_pos - np.transpose(alpha_star.dot(np.transpose(desired_shape))))/n
 
+#calculating the goal formation q matrix such that q = alphaStar * s + dStar
 q = np.transpose(alpha_star.dot(np.transpose(desired_shape)) + np.transpose(d_star))
-q = q%600
 
 print(q)
-'''
+
+_ = 0
+for i, j in x_star:
+	ball1 = Ball(canvas, initial_pos[i][0], initial_pos[i][1], color[_])
+	ball2 = Ball(canvas, desired_shape[j][0], desired_shape[j][1], color[_])
+	ball3 = Ball(canvas, q[j][0], q[j][1], color[0])
+	_ = int(_ + 1)%10
+
+
+root.mainloop()

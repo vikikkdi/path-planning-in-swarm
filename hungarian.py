@@ -66,7 +66,6 @@ class Hungarian:
             matrix_size = max(self._maxColumn, self._maxRow)
             pad_columns = matrix_size - self._maxRow
             pad_rows = matrix_size - self._maxColumn
-            print(pad_rows, pad_columns)
 #            my_matrix = np.pad(my_matrix, ((0,pad_columns),(0,pad_rows)), 'constant', constant_values=(0))
 
             # Convert matrix to profit matrix if necessary
