@@ -104,10 +104,8 @@ _ = 0
 for i, j in x_star:
 	ball1 = Ball(canvas, initial_pos[i][0], initial_pos[i][1], color[_])
 	ball = Ball(canvas, qq[j][0], qq[j][1], color[_])
-	balls.append(ball1)
+	ball1.move_ball(qq[j][0], qq[j][1])
 	_ = int(_ + 1)%10
-for i, j in x_star:
-	balls[i].move_ball(qq[j][0], qq[j][1])
 
 #root.after(50, update_pos, initial_pos, desired_shape, x_star, balls)
 root.mainloop()
