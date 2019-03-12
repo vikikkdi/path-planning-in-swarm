@@ -52,7 +52,7 @@ def generate_circle(n):
 	r = 200
 	pi = math.pi
 	x = [(math.cos(2*pi/n*x)*r,math.sin(2*pi/n*x)*r) for x in range(0,n+1)]
-	x = [(i[0]+500, i[1]+500) for i in x]
+	#x = [(i[0]+500, i[1]+500) for i in x]
 	return x
 
 

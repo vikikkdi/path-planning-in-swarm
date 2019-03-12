@@ -9,7 +9,7 @@ import coordinates
 
 n = 9
 initial_pos = coordinates.initial_pos
-desired_shape = coordinates.generate_V(n)
+desired_shape = coordinates.generate_circle(n)
 
 k = [[0 for j in range(n)] for i in range(n)]
 
@@ -41,7 +41,7 @@ _ = 0
 for i, j in x_star:
 	ball1 = Ball(canvas, initial_pos[i][0], initial_pos[i][1], color[_])
 	ball2 = Ball(canvas, qq[j][0], qq[j][1], color[_])
-#	ball2 = Ball(canvas, desired_shape[j][0], desired_shape[j][1], color[2])
+	ball2 = Ball(canvas, desired_shape[j][0], desired_shape[j][1], color[2])
 	ball1.move_ball(qq[j][0], qq[j][1])
 	_ = int(_ + 1)%10
 
