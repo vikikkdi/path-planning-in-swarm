@@ -1,30 +1,30 @@
 initial_pos = []
 x = 300
-y = 100
+y = 300
 initial_pos.append([x,y])
 x = 300
-y = 200
+y = 400
 initial_pos.append([x,y])
 x = 300
-y = 300
-initial_pos.append([x,y])
-x = 400
-y = 100
-initial_pos.append([x,y])
-x = 400
-y = 200
+y = 500
 initial_pos.append([x,y])
 x = 400
 y = 300
 initial_pos.append([x,y])
-x = 500
-y = 100
+x = 400
+y = 400
 initial_pos.append([x,y])
-x = 500
-y = 200
+x = 400
+y = 500
 initial_pos.append([x,y])
 x = 500
 y = 300
+initial_pos.append([x,y])
+x = 500
+y = 400
+initial_pos.append([x,y])
+x = 500
+y = 500
 initial_pos.append([x,y])
 
 def generate_V(n):
