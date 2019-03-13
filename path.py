@@ -7,42 +7,52 @@ import gradient_descent
 from time import sleep
 import coordinates
 
-n = 9
-initial_pos = coordinates.initial_pos
-desired_shape = coordinates.generate_circle(n)
+def pseudo_cost_function(initial_pos, desired_shape, n):
+	k = [[0 for j in range(n)] for i in range(n)]
 
-k = [[0 for j in range(n)] for i in range(n)]
+	for i in range(n):
+		for j in range(n):
+			x = -np.transpose(initial_pos[i]).dot(np.array(desired_shape[j]))
+			k[i][j] = x
 
-for i in range(n):
-	for j in range(n):
-		x = -np.transpose(initial_pos[i]).dot(np.array(desired_shape[j]))
-		k[i][j] = x
+	hungarian = Hungarian(k)
+	hungarian.calculate()
+	x_star = hungarian.get_results()
+	k_star = hungarian.get_total_potential()
 
-hungarian = Hungarian(k)
-hungarian.calculate()
-x_star = hungarian.get_results()
-k_star = hungarian.get_total_potential()
+	return [x_star, k_star]
 
-# initialize root Window and canvas
-root = Tk()
-root.title("Balls")
-root.resizable(True,True)
-canvas = Canvas(root, width = 800, height = 800)
-canvas.pack()
+def optimal_goal_formation(initial_pos, desired_shape, x_star):
+	d = gradient_descent.gradient_descent(initial_pos, desired_shape, x_star)
+	qq = np.array(d) + np.array(desired_shape)
+	return qq
 
-# create two ball objects and animate them
-balls = []
-color = ["red", "green", "black", "orange", "blue", "yellow", "purple", "grey", "brown", "magenta"]
+def form_circle(balls, n):
+	print("Desired shape is circle")
+	initial_pos = [[i.x, i.y] for i in balls]
+	desired_shape = coordinates.generate_circle(n)
 
-d = gradient_descent.gradient_descent(initial_pos, desired_shape, x_star)
-qq = np.array(d) + np.array(desired_shape)
+	a = pseudo_cost_function(initial_pos, desired_shape, n)
+	x_star = a[0]
+	k_star = a[1]
 
-_ = 0
-for i, j in x_star:
-	ball1 = Ball(canvas, initial_pos[i][0], initial_pos[i][1], color[_])
-	ball2 = Ball(canvas, qq[j][0], qq[j][1], color[_])
-	ball2 = Ball(canvas, desired_shape[j][0], desired_shape[j][1], color[2])
-	ball1.move_ball(qq[j][0], qq[j][1])
-	_ = int(_ + 1)%10
+	qq = optimal_goal_formation(initial_pos, desired_shape, x_star)
 
-root.mainloop()
+	for i, j in x_star:
+		balls[i].move_ball(qq[j][0], qq[j][1])
+	print("Circle shape formed")
+
+def form_v(balls, n):
+	print("Desired shape is V")
+	initial_pos = [[i.x, i.y] for i in balls]
+	desired_shape = coordinates.generate_V(n)
+
+	a = pseudo_cost_function(initial_pos, desired_shape, n)
+	x_star = a[0]
+	k_star = a[1]
+
+	qq = optimal_goal_formation(initial_pos, desired_shape, x_star)
+
+	for i, j in x_star:
+		balls[i].move_ball(qq[j][0], qq[j][1])
+	print("V shape formed")

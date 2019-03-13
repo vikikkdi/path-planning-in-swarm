@@ -14,8 +14,7 @@ class Ball:
 
 	def move_ball(self, x_aug, y_aug):
 		if self.x == x_aug and self.y == y_aug:
-			deltax = 0
-			deltay = 0
+			return
 		elif self.x == x_aug:
 			deltax = 0
 			if self.y < y_aug:
