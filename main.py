@@ -8,7 +8,6 @@ from time import sleep
 import coordinates
 from path import *
 
-# initialize root Window and canvas
 root = Tk()
 root.title("Balls")
 root.resizable(True,True)
@@ -30,5 +29,8 @@ button1_window = canvas.create_window(700, 700, anchor=NW, window=button1)
 
 button2 = Button(root, text = "V", command = lambda: form_v(balls, n), anchor = W)
 button2_window = canvas.create_window(750, 700, anchor=NW, window=button2)
+
+button3 = Button(root, text = "Initial", command = lambda: form_n_init(balls, n), anchor = W)
+button3_window = canvas.create_window(650, 700, anchor=NW, window=button3)
 
 root.mainloop()

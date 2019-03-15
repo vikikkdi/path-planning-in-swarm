@@ -56,3 +56,18 @@ def form_v(balls, n):
 	for i, j in x_star:
 		balls[i].move_ball(qq[j][0], qq[j][1])
 	print("V shape formed")
+
+def form_n_init(balls, n):
+	print("Desired shape is n*n")
+	initial_pos = [[i.x, i.y] for i in balls]
+	desired_shape = coordinates.initial_pos
+
+	a = pseudo_cost_function(initial_pos, desired_shape, n)
+	x_star = a[0]
+	k_star = a[1]
+
+	qq = optimal_goal_formation(initial_pos, desired_shape, x_star)
+
+	for i, j in x_star:
+		balls[i].move_ball(qq[j][0], qq[j][1])
+	print("n*n shape formed")
