@@ -55,25 +55,75 @@ def generate_circle(n):
 	#x = [(i[0]+500, i[1]+500) for i in x]
 	return x
 
+def compute_product(n):
+	x = 2
+	l = []
+	while n!=1:
+		if int(n%x)==0:
+			l.append(x)
+			n = n/x
+		else:
+			x += 1
+	if len(l)<=1:
+		l = [1] + l
+
+	print(l)
+	return l
+
+def generate_initial(n):
+	l = compute_product(n)
+	if int(len(l)%2) == 0:
+		x1 = l[:int(len(l)/2)]
+		x2 = l[int(len(l)/2):]
+	else:
+		x1 = l[:int(len(l)/2)+1]
+		x2 = l[int(len(l)/2)+1:]
+	row = col = 1	
+	for i in x1:
+		row = row*i
+	for j in x2:
+		col = col*j
+	x, y = 300, 300
+	diff = 100
+	initial_pos = []
+
+	for i in range(row):
+		y = 300
+		for j in range(col):
+			initial_pos.append([x,y])
+			y += diff
+		x += diff
+
+	return initial_pos
+
+def generate_line(n):
+	l = [[200, 200]]
+	for i in range(n-1):
+		l.append([l[-1][0], l[-1][1]+50])
+	return l
+
+def generate_square(n):
+	if n<4:
+		print("Unable to form square")
+		return
+	tx, ty = 100, 100
+	bx, by = 500, 500
+	sq = []
+	sq.append([tx, ty])
+	sq.append([bx, ty])
+	sq.append([bx, by])
+	sq.append([tx, by])
+	n -= 4
+	_ = 0
+
+	while n!=0:
+		x, y = (sq[_][0] + sq[int((_+1)%len(sq))][0])/2, (sq[_][1] + sq[int((_+1)%len(sq))][1])/2
+		sq = sq[:_+1] + [[x, y]] + sq[_+1:]
+		_ = int(int(_+2)%len(sq))
+		n -= 1
+
+	return sq
+
 
 if __name__=='__main__':
-	from vis import Ball
-	from tkinter import *
-	n = int(input("Enter uav number"))
-	des = generate_circle(n)
-
-	root = Tk()
-	root.title("Balls")
-	root.resizable(True,True)
-	canvas = Canvas(root, width = 800, height = 800)
-	canvas.pack()
-
-	# create two ball objects and animate them
-	balls = []
-	color = ["red", "green", "black", "orange", "blue", "yellow", "purple", "grey", "brown", "magenta"]
-	_ = 0
-	for i in des:
-		ball2 = Ball(canvas, i[0], i[1], color[_])
-		_ = int(_ + 1)%10
-
-	root.mainloop()
+	print(generate_initial(int(input('Enter uav count'))))

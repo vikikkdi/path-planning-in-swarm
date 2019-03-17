@@ -17,7 +17,7 @@ canvas.pack()
 n = 9
 balls = []
 color = ["red", "green", "black", "orange", "blue", "yellow", "purple", "grey", "brown", "magenta"]
-initial_pos = coordinates.initial_pos
+initial_pos = coordinates.generate_initial(n)
 _ = 0
 for i in initial_pos:
 	ball1 = Ball(canvas, i[0], i[1], color[_])
@@ -32,5 +32,11 @@ button2_window = canvas.create_window(750, 700, anchor=NW, window=button2)
 
 button3 = Button(root, text = "Initial", command = lambda: form_n_init(balls, n), anchor = W)
 button3_window = canvas.create_window(650, 700, anchor=NW, window=button3)
+
+button4 = Button(root, text = "Line", command = lambda: form_line(balls, n), anchor = W)
+button4_window = canvas.create_window(600, 700, anchor=NW, window=button4)
+
+button5 = Button(root, text = "Square", command = lambda: form_square(balls, n), anchor = W)
+button5_window = canvas.create_window(550, 700, anchor=NW, window=button5)
 
 root.mainloop()

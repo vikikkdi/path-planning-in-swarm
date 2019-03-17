@@ -60,7 +60,7 @@ def form_v(balls, n):
 def form_n_init(balls, n):
 	print("Desired shape is n*n")
 	initial_pos = [[i.x, i.y] for i in balls]
-	desired_shape = coordinates.initial_pos
+	desired_shape = coordinates.generate_initial(n)
 
 	a = pseudo_cost_function(initial_pos, desired_shape, n)
 	x_star = a[0]
@@ -71,3 +71,33 @@ def form_n_init(balls, n):
 	for i, j in x_star:
 		balls[i].move_ball(qq[j][0], qq[j][1])
 	print("n*n shape formed")
+
+def form_line(balls, n):
+	print("Desired shape is a line")
+	initial_pos = [[i.x, i.y] for i in balls]
+	desired_shape = coordinates.generate_line(n)
+
+	a = pseudo_cost_function(initial_pos, desired_shape, n)
+	x_star = a[0]
+	k_star = a[1]
+
+	qq = optimal_goal_formation(initial_pos, desired_shape, x_star)
+
+	for i, j in x_star:
+		balls[i].move_ball(qq[j][0], qq[j][1])
+	print("line shape formed")
+
+def form_square(balls, n):
+	print("Desired shape is a square")
+	initial_pos = [[i.x, i.y] for i in balls]
+	desired_shape = coordinates.generate_square(n)
+
+	a = pseudo_cost_function(initial_pos, desired_shape, n)
+	x_star = a[0]
+	k_star = a[1]
+
+	qq = optimal_goal_formation(initial_pos, desired_shape, x_star)
+
+	for i, j in x_star:
+		balls[i].move_ball(qq[j][0], qq[j][1])
+	print("square shape formed")
