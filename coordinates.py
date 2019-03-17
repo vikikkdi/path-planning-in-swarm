@@ -1,3 +1,5 @@
+import numpy as np
+
 initial_pos = []
 x = 300
 y = 300
@@ -67,7 +69,6 @@ def compute_product(n):
 	if len(l)<=1:
 		l = [1] + l
 
-	print(l)
 	return l
 
 def generate_initial(n):
@@ -83,13 +84,13 @@ def generate_initial(n):
 		row = row*i
 	for j in x2:
 		col = col*j
-	x, y = 300, 300
+	x, y = 100, 200
 	diff = 100
 	initial_pos = []
 
-	for i in range(row):
-		y = 300
-		for j in range(col):
+	for i in range(col):
+		y = 200
+		for j in range(row):
 			initial_pos.append([x,y])
 			y += diff
 		x += diff
@@ -123,6 +124,21 @@ def generate_square(n):
 		n -= 1
 
 	return sq
+
+def generate_diamond(n):
+	dia = [[400,400]]
+	dia.append([dia[0][0]-50, dia[0][1]+100])
+	dia.append([dia[0][0]+50, dia[0][1]+100])
+	dia.append([dia[1][0]-100, dia[1][1]+20])
+	dia.append([dia[2][0]+100, dia[2][1]+20])
+	dia.append([dia[1][0]-30, dia[1][1]+100])
+	dia.append([dia[2][0]+30, dia[2][1]+100])
+	dia.append([dia[0][0], dia[5][1]+50])
+	dia.append([dia[5][0]-20, dia[5][1]+100])
+	dia.append([dia[6][0]+20, dia[6][1]+100])
+
+	return dia
+
 
 
 if __name__=='__main__':

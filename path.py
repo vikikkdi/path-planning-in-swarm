@@ -101,3 +101,18 @@ def form_square(balls, n):
 	for i, j in x_star:
 		balls[i].move_ball(qq[j][0], qq[j][1])
 	print("square shape formed")
+
+def form_diamond(balls, n):
+	print("Desired shape is a diamond")
+	initial_pos = [[i.x, i.y] for i in balls]
+	desired_shape = coordinates.generate_diamond(n)
+
+	a = pseudo_cost_function(initial_pos, desired_shape, n)
+	x_star = a[0]
+	k_star = a[1]
+
+	qq = optimal_goal_formation(initial_pos, desired_shape, x_star)
+
+	for i, j in x_star:
+		balls[i].move_ball(qq[j][0], qq[j][1])
+	print("diamond shape formed")
