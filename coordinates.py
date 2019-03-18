@@ -100,7 +100,7 @@ def generate_initial(n):
 def generate_line(n):
 	l = [[200, 200]]
 	for i in range(n-1):
-		l.append([l[-1][0], l[-1][1]+50])
+		l.append([l[-1][0]+50, l[-1][1]+50])
 	return l
 
 def generate_square(n):
