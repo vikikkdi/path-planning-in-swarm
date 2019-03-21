@@ -36,8 +36,8 @@ button3_window = canvas.create_window(610, 700, anchor=NW, window=button3)
 button4 = Button(root, text = "Square", command = lambda: form_square(balls, n), anchor = W)
 button4_window = canvas.create_window(550, 700, anchor=NW, window=button4)
 
-button5 = Button(root, text = "Diamond", command = lambda: form_diamond(balls, n), anchor = W)
-button5_window = canvas.create_window(480, 700, anchor=NW, window=button5)
+button5 = Button(root, text = "Star", command = lambda: form_diamond(balls, n), anchor = W)
+button5_window = canvas.create_window(510, 700, anchor=NW, window=button5)
 
 button6 = Button(root, text = "Initial", command = lambda: form_n_init(balls, n), anchor = W)
 button6_window = canvas.create_window(720, 700, anchor=NW, window=button6)
