@@ -1,4 +1,4 @@
-# This project is still under development
+# Check other branches for the entire project
 
 This is a repository for path planning in swarm environment.
 
